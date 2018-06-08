@@ -20,7 +20,7 @@ public class BoardController {
 
         model.addAttribute("list", mBoardService.boardListService());
 
-        return "list"; //생성할 jsp
+        return "posts"; //생성할 jsp
     }
 
     @RequestMapping("/detail/{bno}")
