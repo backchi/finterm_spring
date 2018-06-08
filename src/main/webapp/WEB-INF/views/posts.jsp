@@ -20,7 +20,7 @@
             <th>Content</th>
         </tr>
           <c:forEach var="l" items="${list}">
-              <tr>
+              <tr onclick="location.href='/detail/${l.id}'">
                   <td>${l.id}</td>
                   <td>${l.title}</td>
                   <td>${l.content}</td>
