@@ -10,4 +10,42 @@
         COUNT(*)
         FROM BOARD
     </select>
+
+    <select id="boardList" resultType="com.example.finterm.board.domain.BoardVO">
+        SELECT
+        *
+        FROM BOARD
+    </select>
+
+    <select id="boardDetail" parameterType="int" resultType="com.example.finterm.board.domain.BoardVO">
+        SELECT
+        *
+        FROM BOARD
+        WHERE
+        ID = #{id}
+    </select>
+
+    <insert id="boardInsert" parameterType="com.example.finterm.board.domain.BoardVO">
+        INSERT INTO
+        BOARD (TITLE, CONTENT)
+        VALUES(#{title},#{content})
+    </insert>
+
+    <update id="boardUpdate" parameterType="com.example.finterm.board.domain.BoardVO">
+        UPDATE BOARD
+        SET
+        <if test="title != null">
+            TITLE = #{title}
+        </if>
+        <if test="title != null and content != null"> , </if>
+        <if test="content != null">
+            CONTENT = #{content}
+        </if>
+        WHERE ID = #{id}
+    </update>
+
+    <delete id="boardDelete" parameterType="int">
+        DELETE FROM BOARD WHERE ID = #{id}
+    </delete>
+
 </mapper>
