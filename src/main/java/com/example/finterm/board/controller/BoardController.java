@@ -59,11 +59,15 @@ public class BoardController {
     }
 
     @RequestMapping("/updateProc")
-    private int boardUpdateProc(HttpServletRequest request) throws Exception{
+    private String boardUpdateProc(HttpServletRequest request) throws Exception{
+        BoardVO board = new BoardVO();
+        board.setTitle(request.getParameter("title"));
+        board.setContent(request.getParameter("content"));
+        board.setId(Integer.parseInt(request.getParameter("id")));
 
-        BoardVO board = (BoardVO) request.getParameterMap();
+        mBoardService.boardUpdateService(board);
 
-        return mBoardService.boardUpdateService(board);
+        return "redirect:/detail/"+request.getParameter("id");
     }
 
     @RequestMapping("/delete/{bno}")
