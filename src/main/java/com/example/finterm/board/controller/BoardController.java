@@ -1,14 +1,20 @@
 package com.example.finterm.board.controller;
 
 import com.example.finterm.board.domain.BoardVO;
+import com.example.finterm.board.domain.FileVO;
 import com.example.finterm.board.service.BoardService;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 
 @Controller
 public class BoardController {
@@ -38,24 +44,42 @@ public class BoardController {
     }
 
     @RequestMapping("/insertProc")
-    private String boardInsertProc(HttpServletRequest request) throws Exception{
+    private String boardInsertProc(HttpServletRequest request, @RequestPart MultipartFile files) throws Exception{
 
         BoardVO board = new BoardVO();
+        FileVO file  = new FileVO();
 
         board.setTitle(request.getParameter("title"));
         board.setContent(request.getParameter("content"));
 
-        mBoardService.boardInsertService(board);
+        if(files.isEmpty()){
+            mBoardService.boardInsertService(board);
+        } else {
+            String fileName = files.getOriginalFilename();
+            String fileNameExtension = FilenameUtils.getExtension(fileName).toLowerCase();
+            File destinationFile;
+            String destinationFileName;
+            String fileUrl = "C:/Users/ekgml/Desktop/finterm_spring/src/main/webapp/WEB-INF/uploadFiles/";
+
+            do {
+                destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + fileNameExtension;
+                destinationFile = new File(fileUrl + destinationFileName);
+            } while (destinationFile.exists());
+
+            destinationFile.getParentFile().mkdirs();
+            files.transferTo(destinationFile);
+
+            mBoardService.boardInsertService(board);
+
+            file.setId(board.getId());
+            file.setFileName(destinationFileName);
+            file.setFileOriName(fileName);
+            file.setFileUrl(fileUrl);
+
+            mBoardService.fileInsertService(file); //file insert
+        }
 
         return "redirect:/list";
-    }
-
-    @RequestMapping("/update/{bno}") //게시글 수정폼 호출
-    private String boardUpdateForm(@PathVariable int bno, Model model) throws Exception{
-
-        model.addAttribute("detail", mBoardService.boardDetailService(bno));
-
-        return "update";
     }
 
     @RequestMapping("/updateProc")
@@ -77,4 +101,10 @@ public class BoardController {
 
         return "redirect:/list";
     }
+
+    @RequestMapping("/image")
+    private String showImage(String url, HttpServletRequest request) {
+        request.setAttribute("path", url);
+        return "/image";
+    };
 }

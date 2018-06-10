@@ -15,10 +15,13 @@
                 <label for="title">제목</label>
                 <input type="text" class="form-control" id="title" name="title" value="${detail.title}">
             </div>
+
             <div class="form-group">
                 <label for="content">내용</label>
                 <textarea class="form-control" id="content" name="content" rows="3">${detail.content}</textarea>
             </div>
+
+            <input type="file" name="files">
             <input type="hidden" name="id" value="${detail.id}"/>
             <button type="submit" class="btn btn-primary">수정</button>
         </form>

@@ -20,6 +20,10 @@
             <p>${detail.title}</p>
         </div>
         <div class="form-group">
+            <label>사진</label>
+            <img src="/image?url=${detail.fileurl}${detail.filename}" alt="/">
+        </div>
+        <div class="form-group">
             <label>내용</label>
             <p>${detail.content}</p>
         </div>

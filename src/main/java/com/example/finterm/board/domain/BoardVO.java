@@ -7,4 +7,6 @@ public class BoardVO {
     private int id;
     private String title;
     private String content;
+    private String fileurl;
+    private String filename;
 }

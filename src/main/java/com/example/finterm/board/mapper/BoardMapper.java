@@ -1,6 +1,7 @@
 package com.example.finterm.board.mapper;
 
 import com.example.finterm.board.domain.BoardVO;
+import com.example.finterm.board.domain.FileVO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,6 +19,9 @@ public interface BoardMapper {
 
     //게시글 작성
     public int boardInsert(BoardVO board) throws Exception;
+
+    //파일 업로드
+    public int fileInsert(FileVO file) throws Exception;
 
     //게시글 수정
     public int boardUpdate(BoardVO board) throws Exception;

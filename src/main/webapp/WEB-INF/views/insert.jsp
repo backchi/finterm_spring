@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container">
-    <form action="/insertProc" method="post">
+    <form action="/insertProc" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">제목</label>
             <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요.">
@@ -17,6 +17,9 @@
             <label for="content">내용</label>
             <textarea class="form-control" id="content" name="content" rows="3"></textarea>
         </div>
+
+        <input type="file" name="files">
+
         <button type="submit" class="btn btn-primary">작성</button>
     </form>
 </div>

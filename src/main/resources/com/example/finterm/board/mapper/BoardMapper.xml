@@ -21,14 +21,22 @@
         SELECT
         *
         FROM BOARD
+        LEFT OUTER JOIN FILES
+        ON BOARD.ID = FILES.ID
         WHERE
-        ID = #{id}
+        FILES.ID = #{id}
     </select>
 
-    <insert id="boardInsert" parameterType="com.example.finterm.board.domain.BoardVO">
+    <insert id="boardInsert" parameterType="com.example.finterm.board.domain.BoardVO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
         BOARD (TITLE, CONTENT)
         VALUES(#{title},#{content})
+    </insert>
+
+    <insert id="fileInsert" parameterType="com.example.finterm.board.domain.FileVO">
+        INSERT INTO
+        FILES (FNO, ID, FILENAME, FILEORINAME, FILEURL)
+        VALUES (#{fno},#{id},#{fileName},#{fileOriName},#{fileUrl})
     </insert>
 
     <update id="boardUpdate" parameterType="com.example.finterm.board.domain.BoardVO">

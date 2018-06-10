@@ -1,6 +1,7 @@
 package com.example.finterm.board.service;
 
 import com.example.finterm.board.domain.BoardVO;
+import com.example.finterm.board.domain.FileVO;
 import com.example.finterm.board.mapper.BoardMapper;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,10 @@ public class BoardService {
 
     public int boardInsertService(BoardVO board) throws Exception{
         return mBoardMapper.boardInsert(board);
+    }
+
+    public int fileInsertService(FileVO file) throws Exception{
+        return mBoardMapper.fileInsert(file);
     }
 
     public int boardUpdateService(BoardVO board) throws Exception{
