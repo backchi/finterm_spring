@@ -56,4 +56,11 @@
         DELETE FROM BOARD WHERE ID = #{id}
     </delete>
 
+    <select id="loginCheck" resultType="int" parameterType="String">
+        SELECT
+        COUNT(*)
+        FROM ACCOUNT
+        WHERE ID = #{id} and PASSWORD = #{password}
+    </select>
+
 </mapper>

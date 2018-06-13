@@ -36,4 +36,8 @@ public class BoardService {
     public int boardDeleteService(int bno) throws Exception{
         return mBoardMapper.boardDelete(bno);
     }
+
+    public int loginCheck(String id, String password) {
+        return mBoardMapper.loginCheck(id, password);
+    }
 }

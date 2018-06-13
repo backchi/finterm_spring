@@ -14,15 +14,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class BoardController {
-    @Resource(name="com.example.finterm.board.service.BoardService")
+
+    @Resource(name = "com.example.finterm.board.service.BoardService")
     BoardService mBoardService;
 
     @RequestMapping("/list") //게시판 리스트 화면 호출
-    private String boardList(Model model) throws Exception{
+    private String boardList(Model model) throws Exception {
 
         model.addAttribute("list", mBoardService.boardListService());
 
@@ -30,7 +36,7 @@ public class BoardController {
     }
 
     @RequestMapping("/detail/{bno}")
-    private String boardDetail(@PathVariable int bno, Model model) throws Exception{
+    private String boardDetail(@PathVariable int bno, Model model) throws Exception {
 
         model.addAttribute("detail", mBoardService.boardDetailService(bno));
 
@@ -38,21 +44,21 @@ public class BoardController {
     }
 
     @RequestMapping("/insert") //게시글 작성폼 호출
-    private String boardInsertForm(){
+    private String boardInsertForm() {
 
         return "insert";
     }
 
     @RequestMapping("/insertProc")
-    private String boardInsertProc(HttpServletRequest request, @RequestPart MultipartFile files) throws Exception{
+    private String boardInsertProc(HttpServletRequest request, @RequestPart MultipartFile files) throws Exception {
 
         BoardVO board = new BoardVO();
-        FileVO file  = new FileVO();
+        FileVO file = new FileVO();
 
         board.setTitle(request.getParameter("title"));
         board.setContent(request.getParameter("content"));
 
-        if(files.isEmpty()){
+        if (files.isEmpty()) {
             mBoardService.boardInsertService(board);
         } else {
             String fileName = files.getOriginalFilename();
@@ -83,7 +89,7 @@ public class BoardController {
     }
 
     @RequestMapping("/updateProc")
-    private String boardUpdateProc(HttpServletRequest request) throws Exception{
+    private String boardUpdateProc(HttpServletRequest request) throws Exception {
         BoardVO board = new BoardVO();
         board.setTitle(request.getParameter("title"));
         board.setContent(request.getParameter("content"));
@@ -91,11 +97,11 @@ public class BoardController {
 
         mBoardService.boardUpdateService(board);
 
-        return "redirect:/detail/"+request.getParameter("id");
+        return "redirect:/detail/" + request.getParameter("id");
     }
 
     @RequestMapping("/delete/{bno}")
-    private String boardDelete(@PathVariable int bno) throws Exception{
+    private String boardDelete(@PathVariable int bno) throws Exception {
 
         mBoardService.boardDeleteService(bno);
 
@@ -106,5 +112,36 @@ public class BoardController {
     private String showImage(String url, HttpServletRequest request) {
         request.setAttribute("path", url);
         return "/image";
-    };
+    }
+
+    //loginCheck 함수 수행
+    @RequestMapping(value="/login/loginCheck")
+    public String loginCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        int check = mBoardService.loginCheck(request.getParameter("id"), request.getParameter("password"));
+        String returnUrl = "";
+
+        if (check == 1) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("id", request.getParameter("id"));
+            request.getSession().setAttribute("login", map);
+
+            returnUrl = "redirect:/list";
+        } else {
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('땡'); location.href='/list'</script>");
+            out.flush();
+        }
+
+        return returnUrl;
+    }
+    //로그아웃 컨트롤러
+    @RequestMapping(value="/login/logout")
+    public String logOut(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "redirect:/list";
+    }
+
+
 }

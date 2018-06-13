@@ -2,6 +2,7 @@ package com.example.finterm.board.mapper;
 
 import com.example.finterm.board.domain.BoardVO;
 import com.example.finterm.board.domain.FileVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public interface BoardMapper {
 
     //게시글 삭제
     public int boardDelete(int bno) throws Exception;
+
+    public int loginCheck(@Param("id") String id, @Param("password") String password);
 }

@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Insert title here</title>
+    <title>게시글</title>
 </head>
 <body>
 <h2> 게시글 상세 </h2>
