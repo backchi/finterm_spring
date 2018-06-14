@@ -52,8 +52,9 @@ CREATE TABLE `board` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `title` varchar(20) NOT NULL,
   `content` text NOT NULL,
+  `username` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,7 +63,7 @@ CREATE TABLE `board` (
 
 LOCK TABLES `board` WRITE;
 /*!40000 ALTER TABLE `board` DISABLE KEYS */;
-INSERT INTO `board` VALUES (6,'dd','ㅇㄶㅁ'),(7,'ㅎㅎ','ㅎㅎㅎ');
+INSERT INTO `board` VALUES (4,'dfsd','dfsa','dahee');
 /*!40000 ALTER TABLE `board` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,7 +81,7 @@ CREATE TABLE `files` (
   `fileOriName` varchar(300) NOT NULL,
   `fileurl` varchar(500) NOT NULL,
   PRIMARY KEY (`fno`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,7 +90,7 @@ CREATE TABLE `files` (
 
 LOCK TABLES `files` WRITE;
 /*!40000 ALTER TABLE `files` DISABLE KEYS */;
-INSERT INTO `files` VALUES (7,1,'CMvyXl6hAuee6y3rI18FMuaVtTKUTNIn.png','amatalogo.png','C:/Users/ekgml/Desktop/finterm_spring/src/main/webapp/WEB-INF/uploadFiles/'),(8,3,'kfXQkU9Vm54i8bwgLS0zJjAzaVIe7vhL.png','amatalogo.png','C:/Users/ekgml/Desktop/finterm_spring/src/main/webapp/WEB-INF/uploadFiles/'),(9,4,'3Mf156i51tY9YVUmE5PbtxGKjKOxLTCJ.png','amatalogo.png','C:/Users/ekgml/Desktop/finterm_spring/src/main/webapp/WEB-INF/uploadFiles/'),(10,5,'WMvMdPCM0zKjhnYiD69hjVedgW4SYtF2.jpg','1525750736629.jpg','C:/Users/ekgml/Desktop/finterm_spring/src/main/webapp/WEB-INF/uploadFiles/'),(11,6,'61fAi7EgVrc1FdtYC4C0LZHDBVkceW0L.jpg','1525750736629.jpg','C:/Users/ekgml/Desktop/finterm_spring/src/main/webapp/WEB-INF/uploadFiles/'),(12,7,'3SFAYKINAoK4yY3kmWc6ulWkLZuTtPTR.png','amata(36).png','C:/Users/ekgml/Desktop/finterm_spring/src/main/webapp/WEB-INF/uploadFiles/');
+INSERT INTO `files` VALUES (1,1,'P4CKDTvhDH6TZ7BvjBsTSEEk3KpXnKZ8.png','amatalogo.png','C:/Users/ekgml/Desktop/finterm_spring/src/main/webapp/WEB-INF/uploadFiles/'),(2,2,'gTT5NFow1hhVJb6RRjwOQUqkCZ0Mtfn5.png','amatalogo.png','C:/Users/ekgml/Desktop/finterm_spring/src/main/webapp/WEB-INF/uploadFiles/'),(3,3,'F7jgcZUyN8TV4bjHfKibgxrc8ZbkQ3VW.jpg','1525750736629.jpg','C:/Users/ekgml/Desktop/finterm_spring/src/main/webapp/WEB-INF/uploadFiles/'),(4,4,'YWuYLu4r07PhnBs5dpp9PV0iGcPM51Vv.jpg','1525750736629.jpg','C:/Users/ekgml/Desktop/finterm_spring/src/main/webapp/WEB-INF/uploadFiles/');
 /*!40000 ALTER TABLE `files` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -102,4 +103,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-14 18:13:09
+-- Dump completed on 2018-06-14 22:30:44
