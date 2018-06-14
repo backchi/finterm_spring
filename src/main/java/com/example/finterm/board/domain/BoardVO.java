@@ -9,4 +9,5 @@ public class BoardVO {
     private String content;
     private String fileurl;
     private String filename;
+    private String username;
 }

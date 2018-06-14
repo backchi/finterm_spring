@@ -17,6 +17,7 @@
             <label for="content">내용</label>
             <textarea class="form-control" id="content" name="content" rows="3"></textarea>
         </div>
+        <input type="hidden" id="username" name="username" value="${sessionScope.login.id}">
 
         <input type="file" name="files">
 

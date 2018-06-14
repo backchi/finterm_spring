@@ -57,6 +57,7 @@ public class BoardController {
 
         board.setTitle(request.getParameter("title"));
         board.setContent(request.getParameter("content"));
+        board.setUsername(request.getParameter("username"));
 
         if (files.isEmpty()) {
             mBoardService.boardInsertService(board);
@@ -87,23 +88,56 @@ public class BoardController {
 
         return "redirect:/list";
     }
+    @RequestMapping("/update/{id}") //게시글 작성폼 호출
+    private String boardUpdateForm(@PathVariable int id, Model model) throws Exception{
+        model.addAttribute("detail", mBoardService.boardDetailService(id));
 
+        return "update";
+    }
     @RequestMapping("/updateProc")
-    private String boardUpdateProc(HttpServletRequest request) throws Exception {
+    private String boardUpdateProc(HttpServletRequest request, @RequestPart MultipartFile files) throws Exception {
         BoardVO board = new BoardVO();
+        FileVO file = new FileVO();
+
         board.setTitle(request.getParameter("title"));
         board.setContent(request.getParameter("content"));
+        board.setUsername(request.getParameter("username"));
         board.setId(Integer.parseInt(request.getParameter("id")));
 
-        mBoardService.boardUpdateService(board);
+        if (files.isEmpty()) {
+            mBoardService.boardUpdateService(board);
+        } else {
+            String fileName = files.getOriginalFilename();
+            String fileNameExtension = FilenameUtils.getExtension(fileName).toLowerCase();
+            File destinationFile;
+            String destinationFileName;
+            String fileUrl = "C:/Users/ekgml/Desktop/finterm_spring/src/main/webapp/WEB-INF/uploadFiles/";
+
+            do {
+                destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + fileNameExtension;
+                destinationFile = new File(fileUrl + destinationFileName);
+            } while (destinationFile.exists());
+
+            destinationFile.getParentFile().mkdirs();
+            files.transferTo(destinationFile);
+
+            mBoardService.boardUpdateService(board);
+
+            file.setId(board.getId());
+            file.setFileName(destinationFileName);
+            file.setFileOriName(fileName);
+            file.setFileUrl(fileUrl);
+
+            mBoardService.fileUpdateService(file); //file insert
+        }
 
         return "redirect:/detail/" + request.getParameter("id");
     }
 
-    @RequestMapping("/delete/{bno}")
-    private String boardDelete(@PathVariable int bno) throws Exception {
+    @RequestMapping("/delete/{id}")
+    private String boardDelete(@PathVariable int id) throws Exception {
 
-        mBoardService.boardDeleteService(bno);
+        mBoardService.boardDeleteService(id);
 
         return "redirect:/list";
     }

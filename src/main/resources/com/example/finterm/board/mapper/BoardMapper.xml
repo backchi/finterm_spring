@@ -29,8 +29,8 @@
 
     <insert id="boardInsert" parameterType="com.example.finterm.board.domain.BoardVO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
-        BOARD (TITLE, CONTENT)
-        VALUES(#{title},#{content})
+        BOARD (TITLE, CONTENT, USERNAME)
+        VALUES(#{title},#{content},#{username})
     </insert>
 
     <insert id="fileInsert" parameterType="com.example.finterm.board.domain.FileVO">
@@ -62,5 +62,13 @@
         FROM ACCOUNT
         WHERE ID = #{id} and PASSWORD = #{password}
     </select>
+
+    <insert id="fileUpdate" parameterType="com.example.finterm.board.domain.FileVO">
+        UPDATE
+        FILES
+        SET
+        FILENAME = #{fileName}, FILEORINAME = #{fileOriName}, FILEURL = #{fileUrl}
+        WHERE ID = #{id}
+    </insert>
 
 </mapper>

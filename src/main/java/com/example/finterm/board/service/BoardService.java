@@ -40,4 +40,8 @@ public class BoardService {
     public int loginCheck(String id, String password) {
         return mBoardMapper.loginCheck(id, password);
     }
+
+    public int fileUpdateService(FileVO file) throws Exception{
+        return mBoardMapper.fileUpdate(file);
+    }
 }

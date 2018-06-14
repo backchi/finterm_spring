@@ -28,7 +28,9 @@ public interface BoardMapper {
     public int boardUpdate(BoardVO board) throws Exception;
 
     //게시글 삭제
-    public int boardDelete(int bno) throws Exception;
+    public int boardDelete(int id) throws Exception;
 
     public int loginCheck(@Param("id") String id, @Param("password") String password);
+
+    public int fileUpdate(FileVO file) throws Exception;
 }

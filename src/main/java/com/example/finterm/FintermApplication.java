@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import javax.sql.DataSource;
 
 @SpringBootApplication
-@MapperScan(value={"com.example.finterm.board.mapper"})
+@MapperScan(value={"com.example.finterm.board.mapper","com.example.finterm.user.mapper"})
 public class FintermApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FintermApplication.class, args);

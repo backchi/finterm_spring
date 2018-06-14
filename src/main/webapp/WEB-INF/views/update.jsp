@@ -10,7 +10,7 @@
 <body>
     <h2> 게시글 수정 </h2>
     <div class="container">
-        <form action="/updateProc" method="post">
+        <form action="/updateProc" method="post"  enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">제목</label>
                 <input type="text" class="form-control" id="title" name="title" value="${detail.title}">
@@ -20,6 +20,7 @@
                 <label for="content">내용</label>
                 <textarea class="form-control" id="content" name="content" rows="3">${detail.content}</textarea>
             </div>
+            <input type="hidden" id="username" name="username" value="${sessionScope.login.id}">
 
             <input type="file" name="files">
             <input type="hidden" name="id" value="${detail.id}"/>
